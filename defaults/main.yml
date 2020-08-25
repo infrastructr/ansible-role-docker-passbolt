@@ -1,0 +1,62 @@
+---
+passbolt_hosts: "all"
+passbolt_tenant: "primary"
+passbolt_compose_project_name: "passbolt_{{ passbolt_tenant }}"
+passbolt_base_dir: "/etc/passbolt"
+passbolt_tenant_dir: "{{ passbolt_base_dir }}/{{ passbolt_tenant }}"
+passbolt_user: "root"
+passbolt_group: "root"
+passbolt_http_bind_address: "{{ ansible_host }}"
+passbolt_https_bind_address: "{{ ansible_host }}"
+passbolt_http_port: "80"
+passbolt_https_port: "433"
+
+passbolt_image: "passbolt/passbolt:2.13.5-debian"
+passbolt_images_path: "/data/passbolt/{{ passbolt_tenant }}/images"
+passbolt_gpg_path: "/data/passbolt/{{ passbolt_tenant }}/gpg"
+
+passbolt_database_image: "mysql:5.7.31"
+passbolt_database_path: "/data/passbolt/{{ passbolt_tenant }}/database"
+passbolt_database_bind_address: "{{ ansible_host }}"
+passbolt_database_port: "3306"
+passbolt_database_root_password: "secret"
+passbolt_database_name: "passbolt"
+passbolt_database_user: "passbolt"
+passbolt_database_password: "secret"
+
+passbolt_app_base: null
+passbolt_app_full_base_url: "https://{{ ansible_host }}"
+passbolt_datasources_default_host: "database"
+passbolt_datasources_default_port: "3306"
+passbolt_datasources_default_username: "passbolt"
+passbolt_datasources_default_password: "secret"
+passbolt_datasources_default_database: "passbolt"
+passbolt_datasources_default_ssl_key: ""
+passbolt_datasources_default_ssl_cert: ""
+passbolt_datasources_default_ssl_ca: ""
+passbolt_datasources_quote_identifier: "false"
+passbolt_email_transport_default_class_name: "Smtp"
+passbolt_email_default_from: "you@localhost"
+passbolt_email_default_transport: "default"
+passbolt_email_transport_default_host: "localhost"
+passbolt_email_transport_default_port: "25"
+passbolt_email_transport_default_timeout: "30"
+passbolt_email_transport_default_username: null
+passbolt_email_transport_default_password: null
+passbolt_email_transport_default_client: null
+passbolt_email_transport_default_tls: null
+passbolt_email_transport_default_url: null
+passbolt_gnupghome: "/home/www-data/.gnupg"
+passbolt_key_length: "2048"
+passbolt_subkey_length: "2048"
+passbolt_key_name: "Passbolt default user"
+passbolt_key_email: "passbolt@yourdomain.com"
+passbolt_key_expiration: "0"
+passbolt_gpg_server_key_fingerprint: null
+passbolt_gpg_server_key_public: "/var/www/passbolt/config/gpg/serverkey.asc"
+passbolt_gpg_server_key_private: "/var/www/passbolt/config/gpg/serverkey_private.asc"
+passbolt_plugins_export_enabled: "true"
+passbolt_plugins_import_enabled: "true"
+passbolt_registration_public: "false"
+passbolt_ssl_force: "true"
+passbolt_security_set_headers: "true"

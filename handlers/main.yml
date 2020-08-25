@@ -1,0 +1,6 @@
+---
+- name: "Restart {{ passbolt_tenant }} Passbolt"
+  docker_compose:
+    project_src: "{{ passbolt_tenant_dir }}"
+    state: present
+    restarted: yes
