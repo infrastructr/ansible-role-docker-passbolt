@@ -2,6 +2,10 @@
 - name: Install base OS packages
   hosts: all
   tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
     - name: Install setuptools
       package:
         name: python3-setuptools
