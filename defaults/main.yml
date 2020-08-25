@@ -1,5 +1,4 @@
 ---
-passbolt_hosts: "all"
 passbolt_tenant: "primary"
 passbolt_compose_project_name: "passbolt_{{ passbolt_tenant }}"
 passbolt_base_dir: "/etc/passbolt"

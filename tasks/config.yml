@@ -50,6 +50,3 @@
     owner: "{{ passbolt_user }}"
     group: "{{ passbolt_group }}"
   notify: "Restart {{ passbolt_tenant }} Passbolt"
-
-
-
