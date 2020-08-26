@@ -3,4 +3,4 @@
   hosts: all
   become: yes
   roles:
-    - role: ansible-role-passbolt
+    - role: ansible-role-docker-passbolt
