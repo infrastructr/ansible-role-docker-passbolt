@@ -1,0 +1,13 @@
+---
+- name: Verfiy Passbolt is running
+  hosts: all
+  tasks:
+    - name: Query Passbolt on port 80
+      uri:
+        url: "https://{{ ansible_host }}"
+        validate_certs: no
+      register: uri_result
+    - name: Ensure response code is 200
+      assert:
+        that:
+          - uri_result.status == 200
