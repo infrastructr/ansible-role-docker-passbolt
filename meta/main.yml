@@ -1,10 +1,10 @@
 ---
 galaxy_info:
   author: infrastructr
-  role_name: passbolt
-  description: An Ansible Role that manages setup and configuration of an [Passbolt](https://passbolt.com/).
+  role_name: docker_passbolt
+  description: An Ansible Role that manages setup and configuration of an Passbolt using Docker.
   company: Infrastructr
-  issue_tracker_url: https://github.com/infrastructr/ansible-role-passbolt/issues
+  issue_tracker_url: https://github.com/infrastructr/ansible-role-docker-passbolt/issues
   license: MIT
   min_ansible_version: 2.7
   platforms:
