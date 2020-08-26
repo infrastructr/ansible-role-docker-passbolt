@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/infrastructr/ansible-role-docker-passbolt.svg?branch=master)](https://travis-ci.org/infrastructr/ansible-role-docker-passbolt)
 [![Ansible Galaxy](https://img.shields.io/badge/role-infrastructr.docker_passbolt-blue.svg)](https://galaxy.ansible.com/infrastructr/docker_passbolt/)
-[![Ansible Galaxy Quality Score](https://img.shields.io/ansible/quality/50417)](https://galaxy.ansible.com/nl2go/clickhouse_backup/)
+[![Ansible Galaxy Quality Score](https://img.shields.io/ansible/quality/50417)](https://galaxy.ansible.com/infrastructr/docker_passbolt/)
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/infrastructr/ansible-role-docker-passbolt)](https://galaxy.ansible.com/infrastructr/docker_passbolt)
 [![Ansible Galaxy Downloads](https://img.shields.io/ansible/role/d/50417.svg?color=blue)](https://galaxy.ansible.com/infrastructr/docker_passbolt/)
 
@@ -33,7 +33,7 @@ None.
     - name: Install and configure Passbolt
       hosts: all
       roles:
-        - infrastructr.passbolt
+        - infrastructr.docker_passbolt
 
 ## Development
 
