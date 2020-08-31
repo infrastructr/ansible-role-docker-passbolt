@@ -9,7 +9,7 @@ passbolt_http_port: "80:80"
 passbolt_https_port: "443:443"
 
 passbolt_network_name: shared_net_1
-passbolt_network_external: false
+passbolt_network_external: "false"
 
 passbolt_image: "passbolt/passbolt:2.13.5-debian"
 
