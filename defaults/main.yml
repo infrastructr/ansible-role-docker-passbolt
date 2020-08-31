@@ -1,22 +1,19 @@
 ---
 passbolt_tenant: "primary"
 passbolt_compose_project_name: "passbolt_{{ passbolt_tenant }}"
-passbolt_base_dir: "/etc/passbolt"
+passbolt_base_dir: "/etc/docker-passbolt"
 passbolt_tenant_dir: "{{ passbolt_base_dir }}/{{ passbolt_tenant }}"
 passbolt_user: "root"
 passbolt_group: "root"
-passbolt_http_bind_address: "{{ ansible_host }}"
-passbolt_https_bind_address: "{{ ansible_host }}"
-passbolt_http_port: "80"
-passbolt_https_port: "443"
+passbolt_http_port: "80:80"
+passbolt_https_port: "443:443"
+
+passbolt_network_name: shared_net_1
+passbolt_network_external: false
 
 passbolt_image: "passbolt/passbolt:2.13.5-debian"
-passbolt_images_path: "/data/passbolt/{{ passbolt_tenant }}/images"
-passbolt_gpg_path: "/data/passbolt/{{ passbolt_tenant }}/gpg"
 
 passbolt_database_image: "mysql:5.7.31"
-passbolt_database_path: "/data/passbolt/{{ passbolt_tenant }}/database"
-passbolt_database_bind_address: "127.0.0.1"
 passbolt_database_port: "3306"
 passbolt_database_root_password: "secret"
 passbolt_database_name: "passbolt"
@@ -26,15 +23,10 @@ passbolt_database_host: "database"
 
 passbolt_app_base: null
 passbolt_app_full_base_url: "https://{{ ansible_host }}"
-passbolt_datasources_default_host: "database"
-passbolt_datasources_default_port: "3306"
-passbolt_datasources_default_username: "passbolt"
-passbolt_datasources_default_password: "secret"
-passbolt_datasources_default_database: "passbolt"
-passbolt_datasources_default_ssl_key: ""
-passbolt_datasources_default_ssl_cert: ""
-passbolt_datasources_default_ssl_ca: ""
-passbolt_datasources_quote_identifier: "true"
+passbolt_database_ssl_key: ""
+passbolt_database_ssl_cert: ""
+passbolt_database_ssl_ca: ""
+passbolt_database_quote_identifier: "true"
 passbolt_email_transport_default_class_name: "Smtp"
 passbolt_email_default_from: "you@localhost"
 passbolt_email_default_transport: "default"

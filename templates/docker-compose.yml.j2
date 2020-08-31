@@ -1,16 +1,18 @@
-version: '3.4'
+version: '3.5'
 services:
   database:
-    image: "${PASSBOLT_DATABASE_IMAGE}"
+    image: {{ passbolt_database_image }}
     env_file:
       - database.env
     volumes:
       - database:/var/lib/mysql
     ports:
-      - "${PASSBOLT_DATABASE_BIND_ADDRESS}:${PASSBOLT_DATABASE_PORT}:3306"
+      - {{ passbolt_database_port }}
     restart: unless-stopped
+    networks:
+      - default
   app:
-    image: "${PASSBOLT_IMAGE}"
+    image: {{ passbolt_image }}
     tty: true
     depends_on:
       - database
@@ -24,10 +26,19 @@ services:
     tmpfs:
       - /run
     ports:
-      - "${PASSBOLT_HTTP_BIND_ADDRESS}:${PASSBOLT_HTTP_PORT}:80"
-      - "${PASSBOLT_HTTPS_BIND_ADDRESS}:${PASSBOLT_HTTPS_PORT}:443"
+      - {{ passbolt_http_port }}
+      - {{ passbolt_https_port }}
     restart: unless-stopped
+    networks:
+      - default
 volumes:
   app-gpg:
   app-images:
   database:
+networks:
+  default:
+  {% if passbolt_network_external %}
+  external: {{ passbolt_network_name }}
+  {% else %}
+  name: {{ passbolt_network_name }}
+  {% endif %}
