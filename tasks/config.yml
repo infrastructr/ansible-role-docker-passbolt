@@ -22,15 +22,3 @@
   changed_when: no
   register: create_admin_user_result
   when: passbolt_admin_username not in list_users_result.stdout
-
-- name: "Send registration email to Passbolt admin {{ passbolt_admin_username }}"
-  mail:
-    host: "{{ passbolt_email_transport_default_host }}"
-    port: "{{ passbolt_email_transport_default_port }}"
-    username: "{{ passbolt_email_transport_default_user }}"
-    password: "{{ passbolt_email_transport_default_password }}"
-    to: "{{ passbolt_admin_first_name }} {{ passbolt_admin_last_name }} <{{ passbolt_admin_username }}>"
-    subject: Welcome to Passbolt
-    body: "Please complete your registration using the link below:\n {{ create_admin_user_result.stdout_lines | last }}."
-    secure: always
-  when: passbolt_admin_username not in list_users_result.stdout
