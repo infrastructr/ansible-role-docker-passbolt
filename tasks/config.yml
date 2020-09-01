@@ -1,52 +1,36 @@
 ---
-- name: Create base config dir
-  file:
-    path: "{{ passbolt_base_dir }}"
-    mode: "0755"
-    owner: "{{ passbolt_user }}"
-    group: "{{ passbolt_group }}"
-    state: directory
+- name: List Passbolt users
+  command: "docker-compose exec app mysql -sN \
+    -h {{ passbolt_database_host }} \
+    -u {{ passbolt_database_user }} \
+    -p{{ passbolt_database_password }} \
+    -e 'use {{ passbolt_database_name }};SELECT username FROM users;'"
+  args:
+    chdir: "{{ passbolt_tenant_dir }}"
+  changed_when: no
+  register: list_users_result
 
-- name: Create tenant config dir
-  file:
-    path: "{{ passbolt_tenant_dir }}"
-    mode: "0755"
-    owner: "{{ passbolt_user }}"
-    group: "{{ passbolt_group }}"
-    state: directory
+- name: "Create Passbolt admin user {{ passbolt_admin_username }}"
+  command: "docker-compose exec app su -m -c '/var/www/passbolt/bin/cake \
+             passbolt register_user \
+             -u {{ passbolt_admin_username }} \
+             -f {{ passbolt_admin_first_name }} \
+             -l {{ passbolt_admin_last_name }} \
+             -r admin' -s /bin/sh www-data"
+  args:
+    chdir: "{{ passbolt_tenant_dir }}"
+  changed_when: no
+  register: create_admin_user_result
+  when: passbolt_admin_username not in list_users_result.stdout
 
-- name: Create tenant .env file
-  template:
-    src: .env.j2
-    dest: "{{ passbolt_tenant_dir }}/.env"
-    mode: "0660"
-    owner: "{{ passbolt_user }}"
-    group: "{{ passbolt_group }}"
-  notify: "Restart {{ passbolt_tenant }} Passbolt"
-
-- name: Create tenant database.env file
-  template:
-    src: database.env.j2
-    dest: "{{ passbolt_tenant_dir }}/database.env"
-    mode: "0660"
-    owner: "{{ passbolt_user }}"
-    group: "{{ passbolt_group }}"
-  notify: "Restart {{ passbolt_tenant }} Passbolt"
-
-- name: Create tenant app.env file
-  template:
-    src: app.env.j2
-    dest: "{{ passbolt_tenant_dir }}/app.env"
-    mode: "0660"
-    owner: "{{ passbolt_user }}"
-    group: "{{ passbolt_group }}"
-  notify: "Restart {{ passbolt_tenant }} Passbolt"
-
-- name: Create docker-compose.yml
-  template:
-    src: docker-compose.yml.j2
-    dest: "{{ passbolt_tenant_dir }}/docker-compose.yml"
-    mode: "0644"
-    owner: "{{ passbolt_user }}"
-    group: "{{ passbolt_group }}"
-  notify: "Restart {{ passbolt_tenant }} Passbolt"
+- name: "Send registration email to Passbolt admin {{ passbolt_admin_username }}"
+  mail:
+    host: "{{ passbolt_email_transport_default_host }}"
+    port: "{{ passbolt_email_transport_default_port }}"
+    username: "{{ passbolt_email_transport_default_user }}"
+    password: "{{ passbolt_email_transport_default_password }}"
+    to: "{{ passbolt_admin_first_name }} {{ passbolt_admin_last_name }} <{{ passbolt_admin_username }}>"
+    subject: Welcome to Passbolt
+    body: "Please complete your registration using the link below:\n {{ create_admin_user_result.stdout_lines | last }}."
+    secure: always
+  when: passbolt_admin_username not in list_users_result.stdout

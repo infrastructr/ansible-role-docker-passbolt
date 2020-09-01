@@ -22,3 +22,19 @@
   roles:
     - geerlingguy.pip
     - geerlingguy.docker
+
+- name: Prepare service dependencies
+  hosts: all
+  tasks:
+    - name: Run GreenMail test mail server
+      docker_container:
+        name: mail_server_1
+        image: greenmail/standalone:1.6.0
+        env:
+          GREENMAIL_OPTS: "-Dgreenmail.setup.test.all \
+          -Dgreenmail.hostname=0.0.0.0 \
+          -Dgreenmail.defaultHostname={{ passbolt_email_transport_default_domain }} \
+          -Dgreenmail.verbose \
+          -Dgreenmail.users={{ passbolt_email_transport_default_user }}:{{ passbolt_email_transport_default_password }}@{{ passbolt_email_transport_default_domain }}"
+        published_ports:
+          - 127.0.0.1:3465:3465

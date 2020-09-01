@@ -1,0 +1,8 @@
+---
+- name: Wait for Passbolt container to start
+  command: "docker logs {{ passbolt_compose_project_name }}_app_1"
+  register: get_logs_result
+  until: "'nginx entered RUNNING state' in get_logs_result.stdout"
+  retries: 10
+  delay: 5
+  changed_when: no

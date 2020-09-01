@@ -8,6 +8,10 @@ passbolt_group: "root"
 passbolt_http_port: "80:80"
 passbolt_https_port: "443:443"
 
+passbolt_admin_username: "you@localhost"
+passbolt_admin_first_name: Joe
+passbolt_admin_last_name: Average
+
 passbolt_network_name: shared_net_1
 passbolt_network_external: "false"
 
@@ -37,6 +41,7 @@ passbolt_email_transport_default_username:
 passbolt_email_transport_default_password:
 passbolt_email_transport_default_client:
 passbolt_email_transport_default_tls:
+passbolt_email_transport_default_ssl:
 passbolt_email_transport_default_url:
 passbolt_gnupghome: "/home/www-data/.gnupg"
 passbolt_key_length: "2048"

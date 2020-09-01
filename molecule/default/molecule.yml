@@ -17,6 +17,16 @@ provisioner:
     group_vars:
       all:
         ansible_python_interpreter: /usr/bin/python3
+        passbolt_email_transport_default_port: 3465
+        passbolt_email_transport_default_user: admin
+        passbolt_email_transport_default_domain: passbolt.local
+        passbolt_email_transport_default_ssl: yes
+        passbolt_email_transport_default_username: "{{ passbolt_email_transport_default_user }}@{{ passbolt_email_transport_default_domain }}"
+        passbolt_email_transport_default_password: secret
+        passbolt_email_transport_default_host: 127.0.0.1
+        passbolt_admin_username: admin@passbolt.local
+        passbolt_admin_first_name: Average
+        passbolt_admin_last_name: Joe
   lint: |
     set -e
     ansible-lint
