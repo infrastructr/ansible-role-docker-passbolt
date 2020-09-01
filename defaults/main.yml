@@ -33,18 +33,18 @@ passbolt_email_default_transport: "default"
 passbolt_email_transport_default_host: "localhost"
 passbolt_email_transport_default_port: "25"
 passbolt_email_transport_default_timeout: "30"
-passbolt_email_transport_default_username: null
-passbolt_email_transport_default_password: null
-passbolt_email_transport_default_client: null
-passbolt_email_transport_default_tls: null
-passbolt_email_transport_default_url: null
+passbolt_email_transport_default_username:
+passbolt_email_transport_default_password:
+passbolt_email_transport_default_client:
+passbolt_email_transport_default_tls:
+passbolt_email_transport_default_url:
 passbolt_gnupghome: "/home/www-data/.gnupg"
 passbolt_key_length: "2048"
 passbolt_subkey_length: "2048"
 passbolt_key_name: "Passbolt default user"
 passbolt_key_email: "passbolt@yourdomain.com"
 passbolt_key_expiration: "0"
-passbolt_gpg_server_key_fingerprint: null
+passbolt_gpg_server_key_fingerprint:
 passbolt_gpg_server_key_public: "/var/www/passbolt/config/gpg/serverkey.asc"
 passbolt_gpg_server_key_private: "/var/www/passbolt/config/gpg/serverkey_private.asc"
 passbolt_plugins_export_enabled: "true"
