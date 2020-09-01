@@ -1,6 +1,6 @@
 ---
 - name: List Passbolt users
-  command: "docker-compose exec app mysql -sN \
+  command: "docker-compose exec -T app mysql -sN \
     -h {{ passbolt_database_host }} \
     -u {{ passbolt_database_user }} \
     -p{{ passbolt_database_password }} \
@@ -11,7 +11,7 @@
   register: list_users_result
 
 - name: "Create Passbolt admin user {{ passbolt_admin_username }}"
-  command: "docker-compose exec app su -m -c '/var/www/passbolt/bin/cake \
+  command: "docker-compose exec -T app su -m -c '/var/www/passbolt/bin/cake \
              passbolt register_user \
              -u {{ passbolt_admin_username }} \
              -f {{ passbolt_admin_first_name }} \
