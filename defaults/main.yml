@@ -1,6 +1,6 @@
 ---
 passbolt_tenant: "primary"
-passbolt_compose_project_name: "passbolt_{{ passbolt_tenant }}"
+passbolt_compose_project_name: "passbolt"
 passbolt_base_dir: "/etc/docker-passbolt"
 passbolt_tenant_dir: "{{ passbolt_base_dir }}/{{ passbolt_tenant }}"
 passbolt_user: "root"
@@ -23,7 +23,7 @@ passbolt_database_root_password: "secret"
 passbolt_database_name: "passbolt"
 passbolt_database_user: "passbolt"
 passbolt_database_password: "secret"
-passbolt_database_host: "database"
+passbolt_database_host: "{{ passbolt_tenant }}_database"
 
 passbolt_app_base: null
 passbolt_app_full_base_url: "https://{{ ansible_host }}"

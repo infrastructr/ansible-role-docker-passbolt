@@ -1,27 +1,27 @@
 version: '3.5'
 services:
-  database:
+  {{ passbolt_tenant }}_database:
     image: {{ passbolt_database_image }}
     env_file:
       - database.env
     volumes:
-      - database:/var/lib/mysql
+      - {{ passbolt_tenant }}_database:/var/lib/mysql
     ports:
       - {{ passbolt_database_port }}
     restart: unless-stopped
     networks:
       - default
-  app:
+  {{ passbolt_tenant }}_app:
     image: {{ passbolt_image }}
     tty: true
     depends_on:
-      - database
+      - {{ passbolt_tenant }}_database
     env_file:
       - app.env
-    command: ["/usr/bin/wait-for.sh", "-t", "0", "database:3306", "--", "/docker-entrypoint.sh"]
+    command: ["/usr/bin/wait-for.sh", "-t", "0", "{{ passbolt_tenant }}_database:3306", "--", "/docker-entrypoint.sh"]
     volumes:
-      - "app-gpg:/var/www/passbolt/config/gpg"
-      - "app-images:/var/www/passbolt/webroot/img/public"
+      - "{{ passbolt_tenant }}_app-gpg:/var/www/passbolt/config/gpg"
+      - "{{ passbolt_tenant }}_app-images:/var/www/passbolt/webroot/img/public"
       - /dev/urandom:/dev/random
     tmpfs:
       - /run
@@ -32,9 +32,9 @@ services:
     networks:
       - default
 volumes:
-  app-gpg:
-  app-images:
-  database:
+  {{ passbolt_tenant }}_app-gpg:
+  {{ passbolt_tenant }}_app-images:
+  {{ passbolt_tenant }}_database:
 networks:
   default:
     external: {{ passbolt_network_external }}
